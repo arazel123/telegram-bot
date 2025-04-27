@@ -1,0 +1,27 @@
+name: Run Telegram Bot
+
+on:
+  schedule:
+    - cron: '*/1 * * * *'  # این خط به این معناست که ربات هر 1 دقیقه یکبار اجرا می‌شود.
+  workflow_dispatch:
+
+jobs:
+  run_bot:
+    runs-on: ubuntu-latest  # سیستم عامل که روی آن اجرا خواهد شد.
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2  # برای بررسی کد از GitHub
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'  # نسخه Python که می‌خواهید استفاده کنید.
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt  # نصب کتابخانه‌ها
+
+    - name: Run bot.py
+      run: |
+        python bot.py  # اجرای ربات
